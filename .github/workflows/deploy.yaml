@@ -32,8 +32,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            set -e
+
+            export PATH="/home/indrazm/.nvm/versions/node/v24.15.0/bin:$PATH"
+
             cd /home/indrazm/live/
-            git pull
-            /home/indrazm/.nvm/versions/node/v24.15.0/bin/npm ci
-            /home/indrazm/.nvm/versions/node/v24.15.0/bin/npm run build
-            /home/indrazm/.nvm/versions/node/v24.15.0/bin/pm2 restart myapp
+            git fetch origin main
+            git reset --hard origin/main
+            npm ci
+            npm run build
+            pm2 restart myapp
