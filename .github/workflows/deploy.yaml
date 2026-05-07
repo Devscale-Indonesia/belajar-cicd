@@ -1,7 +1,7 @@
-name: "CI/CD"
+name: "Deploy"
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -23,3 +23,12 @@ jobs:
 
       - name: Build app
         run: npm run build
+
+      - name: SSH to Server and run Script
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: whoami
