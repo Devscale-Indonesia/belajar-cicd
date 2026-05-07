@@ -32,8 +32,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd live/
+            cd /home/indrazm/live/
             git pull
-            npm ci
-            npm run build
-            pm2 restart myapp
+            /home/indrazm/.nvm/versions/node/v24.15.0/bin/npm ci
+            /home/indrazm/.nvm/versions/node/v24.15.0/bin/npm run build
+            /home/indrazm/.nvm/versions/node/v24.15.0/bin/pm2 restart myapp
